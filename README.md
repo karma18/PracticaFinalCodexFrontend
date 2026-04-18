@@ -23,8 +23,22 @@ npm install
 ## Ejecucion local
 
 1. Instala dependencias con `npm install`.
-2. Inicia el proyecto con `npm run dev`.
-3. Abre en el navegador la URL que muestre Vite, normalmente `http://localhost:5173`.
+2. Inicia el backend vecino `PracticaFinalCodexBackend` con `npm start`.
+3. Inicia el proyecto con `npm run dev`.
+4. Abre en el navegador la URL que muestre Vite, normalmente `http://localhost:5173`.
+
+## Configuracion del backend
+
+Por defecto el frontend consume `http://localhost:3000`.
+
+Si necesitas otro host o puerto, configura la variable `VITE_API_BASE_URL`.
+
+Ejemplo en PowerShell:
+
+```powershell
+$env:VITE_API_BASE_URL="http://localhost:4000"
+npm run dev
+```
 
 ## Estructura principal
 
