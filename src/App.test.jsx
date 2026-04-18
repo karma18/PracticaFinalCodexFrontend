@@ -1,22 +1,23 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
 describe('App', () => {
-  it('muestra el titulo principal', () => {
+  it('muestra las pestanas de autenticacion', () => {
     render(<App />);
 
-    expect(
-      screen.getByRole('heading', {
-        name: /aplicacion web lista para correr en local/i
-      })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /registro/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /recuperar contrasena/i })).toBeInTheDocument();
   });
 
-  it('renderiza las tarjetas principales', () => {
+  it('permite iniciar sesion y mostrar el CRUD de usuarios', async () => {
     render(<App />);
 
-    expect(screen.getByText(/base moderna/i)).toBeInTheDocument();
-    expect(screen.getByText(/frontend puro/i)).toBeInTheDocument();
-    expect(screen.getByText(/listo para crecer/i)).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText(/correo/i), { target: { value: 'admin@empresa.com' } });
+    fireEvent.change(screen.getByLabelText(/contrasena/i), { target: { value: '123456' } });
+    fireEvent.click(screen.getByRole('button', { name: /iniciar sesion/i }));
+
+    expect(await screen.findByText(/sesion activa/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /crear usuario/i })).toBeInTheDocument();
   });
 });
